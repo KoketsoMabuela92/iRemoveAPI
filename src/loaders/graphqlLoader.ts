@@ -1,10 +1,6 @@
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
-
-import { Pet } from '../api/models/Pet';
-import { PetRepository } from '../api/repositories/PetRepository';
-import { UserRepository } from '../api/repositories/UserRepository';
 import { env } from '../env';
-import { createDataLoader, createGraphQLServer } from '../lib/graphql';
+import { createGraphQLServer } from '../lib/graphql';
 
 export const graphqlLoader: MicroframeworkLoader = (settings: MicroframeworkSettings | undefined) => {
     if (settings && env.graphql.enabled) {
@@ -16,13 +12,6 @@ export const graphqlLoader: MicroframeworkLoader = (settings: MicroframeworkSett
             queries: env.app.dirs.queries,
             mutations: env.app.dirs.mutations,
             dataLoaders: {
-                user: createDataLoader(UserRepository),
-                pet: createDataLoader(Pet),
-                petsByUserIds: createDataLoader(PetRepository, {
-                    method: 'findByUserIds',
-                    key: 'userId',
-                    multiple: true,
-                }),
             },
         });
 

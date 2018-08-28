@@ -3,7 +3,6 @@ import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3t
 import { createExpressServer } from 'routing-controllers';
 
 import { authorizationChecker } from '../auth/authorizationChecker';
-import { currentUserChecker } from '../auth/currentUserChecker';
 import { env } from '../env';
 
 export const expressLoader: MicroframeworkLoader = (settings: MicroframeworkSettings | undefined) => {
@@ -31,7 +30,6 @@ export const expressLoader: MicroframeworkLoader = (settings: MicroframeworkSett
              * Authorization features
              */
             authorizationChecker: authorizationChecker(connection),
-            currentUserChecker: currentUserChecker(connection),
         });
 
         // Run application to listen on given port
