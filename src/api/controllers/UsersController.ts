@@ -4,6 +4,7 @@ import { HttpStatusCodesConstants } from '../constants/HttpStatusCodesConstants'
 import { Users } from '../models/users';
 import { UsersService } from '../services/UsersService';
 import { GenericErrorResponse } from './responses/GenericErrorResponse';
+import {ErrorCodeConstants} from '../constants/ErrorCodeConstants';
 
 @JsonController('/v1/users')
 export class UsersController {
@@ -18,8 +19,8 @@ export class UsersController {
         let users: Users[]|void = await this.UsersService.find().catch(error => {
             throw new GenericErrorResponse(HttpStatusCodesConstants.HTTP_INTERNAL_SERVER_ERROR,
                 false,
-                'DATABASE',
-                'Error getting companies', error);
+                ErrorCodeConstants.DATABASE_ERROR_CODE,
+                'Error getting users', error);
         });
 
         if (!users) {

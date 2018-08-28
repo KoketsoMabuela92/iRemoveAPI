@@ -4,9 +4,15 @@ export class GenericErrorResponse extends HttpError {
     private errorMessages;
 
     constructor(public httpCode: number, private success: boolean,
-                private errorCode: string, errorMessage: string, private errorLog?: string) {
+                private errorCode: string, errorMessage: string[] | string, private errorLog?: string) {
         super(httpCode);
-        this.errorMessages = [errorMessage];
+        if (typeof errorMessage === 'string') {
+
+            this.errorMessages = [errorMessage];
+            return;
+        }
+
+        this.errorMessages = errorMessage;
     }
 
     public toJSON(): object {
